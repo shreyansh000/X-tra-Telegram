@@ -113,7 +113,7 @@ if Var.PRIVATE_GROUP_ID is not None:
         if sender.verified:
             # don't log verified accounts
             return
-        if response.textstartswith("/start"):
+        if response.text.startswith("/start"):
             await borg.send_message(chat_id, "Do you choose death?{Y/N}")
             return
             if response.textstartwith("Y"):
