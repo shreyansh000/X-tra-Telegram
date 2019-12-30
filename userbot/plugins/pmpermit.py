@@ -111,6 +111,7 @@ if Var.PRIVATE_GROUP_ID is not None:
             # don't log verified accounts
             return
 
+        chat = await event.get_chat()
         async with borg.conversation(chat) as conv:
          chat_id = event.from_id
         if not pmpermit_sql.is_approved(chat_id):
