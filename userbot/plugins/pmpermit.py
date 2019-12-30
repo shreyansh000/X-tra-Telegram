@@ -121,7 +121,10 @@ if Var.PRIVATE_GROUP_ID is not None:
             return
         if event.is_private:
          async with borg.conversation(chat) as conv:
-             if response.text == "/start":
+             chat_id = event.from_id
+             response = await conv.get_response(chat)
+             k = response.text
+             if k == "/start":
                  await menu(event)
                  return
              elif chat_id not in PM_WARNS:
