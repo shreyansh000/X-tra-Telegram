@@ -117,8 +117,7 @@ if Var.PRIVATE_GROUP_ID is not None:
 
     async def do_pm_permit_action(chat_id, event):
         chat = await event.get_chat()
-        conv = borg.conversation(chat)
-        response = await conv.get_response(chat_id)
+        response == event.get_response(chat)
         if response.text == "/start":
             await menu(event)
             return
