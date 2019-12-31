@@ -13,7 +13,7 @@ PREV_REPLY_MESSAGE = {}
 
 
 USER_BOT_WARN_ZERO = "**I am currently offline. Please do not SPAM me.You have been blocked by my userbot and it will remain that way until my master unblocks you.** "
-USER_BOT_NO_WARN = "`[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀]\n\nHello, this is X-tra-Telegram Security Service. If you spam you will be reported and blocked, so make sure you **DON'T SPAM**.\n\nYour companionship is always an opportunity But Sed This line is not for you.\n\n Leave your name, phone number, address and 10k$ and hopefully you'll get a reply within 2 light years.`\n\n** Send** `/start` **to access the menu as to why you're here.**"
+USER_BOT_NO_WARN = "`[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀]\n\nHello, this is X-tra-Telegram Security Service. If you spam you will be reported and blocked, so make sure you **DON'T SPAM**.\n\nYour companionship is always an opportunity But Sed This line is not for you.\n\n Leave your name, phone number, address and 10k$ and hopefully you'll get a reply within 2 light years.`\n\n** Send** `/start` ** twice so that we can decide why you're here.**"
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "No name set yet nibba, check pinned in @XtraTgBot"
 
 
@@ -99,7 +99,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                   "**1. Female Homo-Sapien**\n"
                   "**2. Male Homo-Sapien**\n"
                   "**3. Other**\n")
-         PM = ("`Hello. You are accessing the availabe menu of my peru master, "
+         PM = ("`Hello. You are accessing the availabe menu of my peru master,`"
                f"{DEFAULTUSER}.\n"
                "`Let's make this smooth and let me know why you are here.`\n"
                "**Choose one of the following reasons why you are here:**\n\n"
@@ -108,22 +108,25 @@ if Var.PRIVATE_GROUP_ID is not None:
                "**3. To send nudes.**\n"
                "**4. To enquire something.**\n"
                "**5. To request something.**\n")
-         ONE = ("__Okay. Your request has been registered. **Do not spam my master's inbox.**\nYou can expect a reply within 24 light years. He is a busy man, unlike you probably.__\n\n"
-                "**⚠️ You will be blocked and reported if you spam nibba. ⚠️**\n"
-                "__Use__ `/start` __to go back to the main menu.__")
+         ONE = ("__Okay. Your request has been registered.\n **Do not spam my master's inbox.**\nYou can expect a reply within 24 light years. He is a busy man, unlike you probably.__\n\n"
+                "**⚠️ You will be blocked and reported if you spam nibba. ⚠️**\n\n"
+                "__Send__ `/start` __ twice to go back to the main menu.__")
          TWO = (" `███████▄▄███████████▄  \n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓███░░░░░░░░░░░░█\n██████▀▀▀█░░░░██████▀  \n░░░░░░░░░█░░░░█  \n░░░░░░░░░░█░░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░░▀▀ `\n\n**So uncool, this is not your home. Go bother someone else. You have been blocked and reported by my master's userbot until further notice.**")
-         FOUR = ("__Okay. My master has not seen your message yet.He usually responds to people,though idk about retarted ones.__\n __He'll respond when he comes back, if he wants to.There's already a lot of pending messages😶__\n **Please do not spam unless you wish to be blocked and reported.**")
-         FIVE = ("`Okay. please have the basic manners as to not bother my master too much. If he wishes to help you, he will respond to you soon.`\n**Do not ask repeatdly else you will be blocked and reported.**")
-         LWARN = ("**This is your last warning. DO NOT send another message else you will be blocked and reported. Keep patience. My master will respond you ASAP.**\n__Use__ `/start` __to go back to the main menu.__")
+         FOUR = ("__Okay. My master has not seen your message yet. He usually responds to people,though idk about retarted ones.__\n__He'll respond when he comes back, if he wants to.There's already a lot of pending messages😶__\n\n**Please do not spam unless you wish to be blocked and reported.**")
+         FIVE = ("`Okay. Please have the basic manners as to not bother my master too much.\nIf he wishes to help you, he will respond to you soon.`\n\n**Do not ask repeatdly else you will be blocked and reported.**")
+         LWARN = ("**This is your last warning.\n DO NOT send another message else you will be blocked and reported. Keep patience. My master will respond you ASAP.**\n\n__Send__ `/start` __ twice to go back to the main menu.__")
          
         async with borg.conversation(chat) as conv:
          chat_id = event.from_id
+         userid = event.sender_id
          response = await conv.get_response(chat)
          if response.text == "/start":
              r = await borg.send_message(chat, PM)
              chat_id = event.from_id
+             userid = event.sender_id
              if chat_id in PREV_REPLY_MESSAGE:
                  await PREV_REPLY_MESSAGE[chat_id].delete()
+                 await PREV_REPLY_MESSAGE[userid].delete()
              PREV_REPLY_MESSAGE[chat_id] = r
              response = await conv.get_response(chat)
              y = response.text
@@ -131,6 +134,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                  r = await borg.send_message(chat, ONE)
                  if chat_id in PREV_REPLY_MESSAGE:
                      await PREV_REPLY_MESSAGE[chat_id].delete()
+                     await PREV_REPLY_MESSAGE[userid].delete()
                  PREV_REPLY_MESSAGE[chat_id] = r
                  response = await conv.get_response(chat)
                  if not response.text == "/start":
@@ -144,6 +148,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                  s = await borg.send_message(chat, LWARN)
                  if chat_id in PREV_REPLY_MESSAGE:
                      await PREV_REPLY_MESSAGE[chat_id].delete()
+                     await PREV_REPLY_MESSAGE[userid].delete()
                  PREV_REPLY_MESSAGE[chat_id] = s
                  response = await conv.get_response(chat)
                  if not response.text == "/start":
@@ -154,51 +159,70 @@ if Var.PRIVATE_GROUP_ID is not None:
                  t = await borg.send_message(chat, Nudas)
                  if chat_id in PREV_REPLY_MESSAGE:
                      await PREV_REPLY_MESSAGE[chat_id].delete()
+                     await PREV_REPLY_MESSAGE[userid].delete()
                  PREV_REPLY_MESSAGE[chat_id] = t
                  response = await conv.get_response(chat)
                  x = response.text
                  if x == "1":
-                     await borg.send_message(chat, "`Oh my, you're very much welcome here ;).\n Please drop your offerings and let my master judge if you have good heart <3.`\n **Please don't flood my inbox, we'll have a nice convo once i come back ;D**")
+                     d = await borg.send_message(chat, "`Oh my, you're very much welcome here ;).\nPlease drop your offerings and let my master judge if you have good heart <3.`\n\n **Please don't flood my inbox, we'll have a nice convo once i come back ;D**")
+                     if chat_id in PREV_REPLY_MESSAGE:
+                         await PREV_REPLY_MESSAGE[chat_id].delete()
+                         await PREV_REPLY_MESSAGE[userid].delete()
+                     PREV_REPLY_MESSAGE[chat.id] = d
                      response = await conv.get_response(chat)
                      if not response.text == "/start":
                          await borg.send_message(chat, LWARN)
                          response = await conv.get_response(chat)
                          if not response.text == "/start":
-                             await borg.send_message(TWO)
+                             await borg.send_message(chat, TWO)
                              await asyncio.sleep(3)
                              await event.client(functions.contacts.BlockRequest(chat_id))
                  elif x == "2":
-                     await borg.send_message(chat, "**You nigga gay af to send a guy like my your male nudes. \nLeave immediately else you become the ultimate gayest gay the gay world has ever seen. I will reply you when i get online.**")
+                     e = await borg.send_message(chat, "**You nigga gay af to send a guy like my your male nudes. \nLeave immediately else you become the ultimate gayest gay the gay world has ever seen. I will reply you when i get online.**")
+                     if chat_id in PREV_REPLY_MESSAGE:
+                         await PREV_REPLY_MESSAGE[chat_id].delete()
+                         await PREV_REPLY_MESSAGE[userid].delete()
+                     PREV_REPLY_MESSAGE[chat.id] = e
                      response = await conv.get_response(chat)
                      if not response.text == "/start":
                          await borg.send_message(chat, LWARN)
                          response = await conv.get_response(chat)
                          if not response.text == "/start":
-                             await borg.send_message(TWO)
+                             await borg.send_message(chat, TWO)
                              await asyncio.sleep(3)
                              await event.client(functions.contacts.BlockRequest(chat_id))
                  elif x == "3":
-                     await borg.send_message(chat, "`Please decide a gender for yourself before sending your nudes here, not that i'm judging if you're a helicopter or a banana but yeah, If you are anything else than a female Homo-Sapien, Do not send more messages and let my master see for himself if he wants to talk with you.`")
+                     f = await borg.send_message(chat, "`Please decide a gender for yourself before sending your nudes here, not that i'm judging if you're a helicopter or a banana but yeah, If you are anything else than a female Homo-Sapien, Do not send more messages and let my master see for himself if he wants to talk with you.`")
+                     if chat_id in PREV_REPLY_MESSAGE:
+                         await PREV_REPLY_MESSAGE[chat_id].delete()
+                         await PREV_REPLY_MESSAGE[userid].delete()
+                     PREV_REPLY_MESSAGE[chat.id] = f
                      response = await conv.get_response(chat)
                      if not response.text == "/start":
                          await borg.send_message(chat, LWARN)
                          response = await conv.get_response(chat)
                          if not response.text == "/start":
-                             await borg.send_message(TWO)
+                             await borg.send_message(chat, TWO)
                              await asyncio.sleep(3)
                              await event.client(functions.contacts.BlockRequest(chat_id))
                  else:
-                     await borg.send_message(chat, "__You have entered an invalid command. Please send__ `/start` __again or do not send another message if you do not wish to be blocked and reported.__")
+                     g = await borg.send_message(chat, "__You have entered an invalid command. Please send__ `/start` __again or do not send another message if you do not wish to be blocked and reported.__")
+                     if chat_id in PREV_REPLY_MESSAGE:
+                         await PREV_REPLY_MESSAGE[chat_id].delete()
+                         await PREV_REPLY_MESSAGE[userid].delete()
+                     PREV_REPLY_MESSAGE[chat.id] = g
                      response = await conv.get_response(chat)
                      if not response.text.startswith("/start"):
-                         await borg.send_message(chat, TWO)
-                         await asyncio.sleep(3)
-                         await event.client(functions.contacts.BlockRequest(chat_id))
+                             await borg.send_message(chat, TWO)
+                             await asyncio.sleep(3)
+                             await event.client(functions.contacts.BlockRequest(chat_id))
              elif y == "4":
                  u = await borg.send_message(chat, FOUR)
                  if chat_id in PREV_REPLY_MESSAGE:
                      await PREV_REPLY_MESSAGE[chat_id].delete()
+                     await PREV_REPLY_MESSAGE[userid].delete()
                  PREV_REPLY_MESSAGE[chat_id] = u
+                 response = await conv.get_response(chat)
                  if not response.text == "/start":
                      await borg.send_message(chat, LWARN)
                      response = await conv.get_response(chat)
@@ -210,6 +234,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                  v = await borg.send_message(chat,FIVE)
                  if chat_id in PREV_REPLY_MESSAGE:
                      await PREV_REPLY_MESSAGE[chat_id].delete()
+                     await PREV_REPLY_MESSAGE[userid].delete()
                  PREV_REPLY_MESSAGE[chat_id] = v
                  if not response.text == "/start":
                      await borg.send_message(chat, LWARN)
@@ -219,7 +244,11 @@ if Var.PRIVATE_GROUP_ID is not None:
                          await asyncio.sleep(3)
                          await event.client(functions.contacts.BlockRequest(chat_id))
              else:
-                 await borg.send_message(chat, "You have entered an invalid command. Please send /start again or do not send another message if you do not wish to be blocked and reported.")
+                 w = await borg.send_message(chat, "You have entered an invalid command. Please send /start again or do not send another message if you do not wish to be blocked and reported.")
+                 if chat_id in PREV_REPLY_MESSAGE:
+                     await PREV_REPLY_MESSAGE[chat_id].delete()
+                     await PREV_REPLY_MESSAGE[userid].delete()
+                 PREV_REPLY_MESSAGE[chat_id] = v
                  response = await conv.get_response(chat)
                  z = response.text
                  if not z == "/start":
