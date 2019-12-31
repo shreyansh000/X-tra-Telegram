@@ -168,12 +168,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                  response = await conv.get_response(chat)
                  x = response.text
                  if x == "1":
-                     d = await borg.send_message(chat, "`Oh my, you're very much welcome here ;).\nPlease drop your offerings and let my master judge if you have good heart <3.`\n\n **Please don't flood my inbox, we'll have a nice convo once i come back ;D**")
-                     await response.delete()
-                     if chat_id in PREV_REPLY_MESSAGE:
-                         await PREV_REPLY_MESSAGE[chat_id].delete()
-                         await PREV_REPLY_MESSAGE[userid].delete()
-                     PREV_REPLY_MESSAGE[chat.id] = d
+                     await borg.send_message(chat, "`Oh my, you're very much welcome here ;).\nPlease drop your offerings and let my master judge if you have good heart <3.`\n\n **Please don't flood my inbox, we'll have a nice convo once i come back ;D**")
                      response = await conv.get_response(chat)
                      if not response.text == "/start":
                          k = await borg.send_message(chat, LWARN)
@@ -186,12 +181,8 @@ if Var.PRIVATE_GROUP_ID is not None:
                              await asyncio.sleep(3)
                              await event.client(functions.contacts.BlockRequest(chat_id))
                  elif x == "2":
-                     e = await borg.send_message(chat, "**You nigga gay af to send a guy like my your male nudes. \nLeave immediately else you become the ultimate gayest gay the gay world has ever seen. I will reply you when i get online.**")
+                     await borg.send_message(chat, "**You nigga gay af to send a guy like my your male nudes. \nLeave immediately else you become the ultimate gayest gay the gay world has ever seen. I will reply you when i get online.**")
                      await response.delete()
-                     if chat_id in PREV_REPLY_MESSAGE:
-                         await PREV_REPLY_MESSAGE[chat_id].delete()
-                         await PREV_REPLY_MESSAGE[userid].delete()
-                     PREV_REPLY_MESSAGE[chat.id] = e
                      response = await conv.get_response(chat)
                      if not response.text == "/start":
                          o = await borg.send_message(chat, LWARN)
@@ -204,12 +195,9 @@ if Var.PRIVATE_GROUP_ID is not None:
                              await asyncio.sleep(3)
                              await event.client(functions.contacts.BlockRequest(chat_id))
                  elif x == "3":
-                     f = await borg.send_message(chat, "`Please decide a gender for yourself before sending your nudes here,\n not that i'm judging if you're a helicopter or a banana but yeah, If you are anything else than a female Homo-Sapien,\n Do not send more messages and let my master see for himself if he wants to talk with you.`")
+                     await borg.send_message(chat, "`Please decide a gender for yourself before sending your nudes here,\n not that i'm judging if you're a helicopter or a banana but yeah, If you are anything else than a female Homo-Sapien,\n Do not send more messages and let my master see for himself if he wants to talk with you.`")
                      await response.delete()
                      if chat_id in PREV_REPLY_MESSAGE:
-                         await PREV_REPLY_MESSAGE[chat_id].delete()
-                         await PREV_REPLY_MESSAGE[userid].delete()
-                     PREV_REPLY_MESSAGE[chat.id] = f
                      response = await conv.get_response(chat)
                      if not response.text == "/start":
                          p = await borg.send_message(chat, LWARN)
@@ -236,9 +224,6 @@ if Var.PRIVATE_GROUP_ID is not None:
                  u = await borg.send_message(chat, FOUR)
                  await response.delete()
                  if chat_id in PREV_REPLY_MESSAGE:
-                     await PREV_REPLY_MESSAGE[chat_id].delete()
-                     await PREV_REPLY_MESSAGE[userid].delete()
-                 PREV_REPLY_MESSAGE[chat_id] = u
                  response = await conv.get_response(chat)
                  if not response.text == "/start":
                      await borg.send_message(chat, LWARN)
@@ -251,9 +236,6 @@ if Var.PRIVATE_GROUP_ID is not None:
                  v = await borg.send_message(chat,FIVE)
                  await response.delete()
                  if chat_id in PREV_REPLY_MESSAGE:
-                     await PREV_REPLY_MESSAGE[chat_id].delete()
-                     await PREV_REPLY_MESSAGE[userid].delete()
-                 PREV_REPLY_MESSAGE[chat_id] = v
                  response = await conv.get_response(chat)
                  if not response.text == "/start":
                      await borg.send_message(chat, LWARN)
