@@ -4,8 +4,6 @@ import userbot.plugins.sql_helper.pmpermit_sql as pmpermit_sql
 import telethon.sync
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon import events, errors, functions, types 
-from userbot import ALIVE_NAME
-from userbot.utils import admin_cmd
 
 
 PM_WARNS = {}
@@ -93,6 +91,7 @@ if Var.PRIVATE_GROUP_ID is not None:
 
     async def do_pm_permit_action(chat_id, event):
         chat = await event.get_chat()
+        chat_id = event.from_id
         if event.is_private:
          Nudas = ("__Please state your gender.__\n\n"
                   "**1. Female Homo-Sapien**\n"
@@ -121,6 +120,9 @@ if Var.PRIVATE_GROUP_ID is not None:
          if response.text == "/start":
              r = await borg.send_message(chat, PM)
              chat_id = event.from_id
+             if chat_id in PREV_REPLY_MESSAGE:
+                 await PREV_REPLY_MESSAGE[chat_id].delete()
+             PREV_REPLY_MESSAGE[chat_id] = r
              response = await conv.get_response(chat)
              y = response.text
              if y == "1":
@@ -137,20 +139,20 @@ if Var.PRIVATE_GROUP_ID is not None:
                          await asyncio.sleep(3)
                          await event.client(functions.contacts.BlockRequest(chat_id))
              elif y == "2":
-                 r = await borg.send_message(chat, LWARN)
+                 s = await borg.send_message(chat, LWARN)
                  if chat_id in PREV_REPLY_MESSAGE:
                      await PREV_REPLY_MESSAGE[chat_id].delete()
-                 PREV_REPLY_MESSAGE[chat_id] = r
+                 PREV_REPLY_MESSAGE[chat_id] = s
                  response = await conv.get_response(chat)
                  if not response.text == "/start":
                      await borg.send_message(chat, TWO)
                      await asyncio.sleep(3)
                      await event.client(functions.contacts.BlockRequest(chat_id))
              elif y == "3":
-                 r = await borg.send_message(chat, Nudas)
+                 t = await borg.send_message(chat, Nudas)
                  if chat_id in PREV_REPLY_MESSAGE:
                      await PREV_REPLY_MESSAGE[chat_id].delete()
-                 PREV_REPLY_MESSAGE[chat_id] = r
+                 PREV_REPLY_MESSAGE[chat_id] = t
                  response = await conv.get_response(chat)
                  x = response.text
                  if x == "1":
@@ -191,10 +193,10 @@ if Var.PRIVATE_GROUP_ID is not None:
                          await asyncio.sleep(3)
                          await event.client(functions.contacts.BlockRequest(chat_id))
              elif y == "4":
-                 r = await borg.send_message(chat, FOUR)
+                 u = await borg.send_message(chat, FOUR)
                  if chat_id in PREV_REPLY_MESSAGE:
                      await PREV_REPLY_MESSAGE[chat_id].delete()
-                 PREV_REPLY_MESSAGE[chat_id] = r
+                 PREV_REPLY_MESSAGE[chat_id] = u
                  if not response.text == "/start":
                      await borg.send_message(chat, LWARN)
                      response = await conv.get_response(chat)
@@ -203,10 +205,10 @@ if Var.PRIVATE_GROUP_ID is not None:
                          await asyncio.sleep(3)
                          await event.client(functions.contacts.BlockRequest(chat_id))
              elif y == "5":
-                 r = await borg.send_message(chat,FIVE)
+                 v = await borg.send_message(chat,FIVE)
                  if chat_id in PREV_REPLY_MESSAGE:
                      await PREV_REPLY_MESSAGE[chat_id].delete()
-                 PREV_REPLY_MESSAGE[chat_id] = r
+                 PREV_REPLY_MESSAGE[chat_id] = v
                  if not response.text == "/start":
                      await borg.send_message(chat, LWARN)
                      response = await conv.get_response(chat)
@@ -220,7 +222,6 @@ if Var.PRIVATE_GROUP_ID is not None:
                  z = response.text
                  if not z == "/start":
                      r = await borg.send_message(chat, LWARN)
-                     
                      response = await conv.get_response(chat)
                      await conv.get_response(chat)
                      if not response.text == "/start":
