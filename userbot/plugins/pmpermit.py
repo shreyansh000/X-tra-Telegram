@@ -117,16 +117,17 @@ if Var.PRIVATE_GROUP_ID is not None:
 
     async def do_pm_permit_action(chat_id, event):
         chat = await event.get_chat()
-        async with borg.conversation(chat) as conv:
+        async with borg.conversation(chat) as conv_start:
          chat_id = event.from_id
-         response = await conv.get_response(chat)
+         response = await conv_start.get_response(chat)
          y = response.text
-         if y == "/start":
+         if response.text == "/start":
              await menu(event)
+             return
          else:
             if chat_id not in PM_WARNS:
                 PM_WARNS.update({chat_id: 0})
-            if PM_WARNS[chat_id] == 100:
+            if PM_WARNS[chat_id] == 5:
                 r = await event.reply(USER_BOT_WARN_ZERO)
                 await asyncio.sleep(3)
                 await event.client(functions.contacts.BlockRequest(chat_id))
