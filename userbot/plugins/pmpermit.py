@@ -96,7 +96,8 @@ if Var.PRIVATE_GROUP_ID is not None:
                   "**1. Female Homo-Sapien**\n"
                   "**2. Male Homo-Sapien**\n"
                   "**3. Other**\n")
-         PM = ("`Hello. You are accessing the availabe menu of my peru master, " DEFAULTUSER "`.\n"
+         PM = ("`Hello. You are accessing the availabe menu of my peru master, "
+               f"{DEFAULTUSER}.\n"
                "`Let's make this smooth and let me know why you are here.`\n"
                "**Choose one of the following reasons why you are here:**\n\n"
                "**1. To chat with my master.**\n"
