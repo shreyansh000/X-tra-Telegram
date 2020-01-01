@@ -122,7 +122,7 @@ if Var.PRIVATE_GROUP_ID is not None:
              r = await borg.send_message(chat, PM)
              chat_id = event.from_id
              userid = event.sender_id
-             if Var.LESS_SPAMMY is not False:
+             if Var.LESS_SPAMMY is not "False":
                  await response.delete()
                  if chat_id in PREV_REPLY_MESSAGE:
                      await PREV_REPLY_MESSAGE[chat_id].delete()
@@ -132,12 +132,11 @@ if Var.PRIVATE_GROUP_ID is not None:
              y = response.text
              if y == "1":
                  r = await borg.send_message(chat, ONE)
-                 if Var.LESS_SPAMMY is not False:
+                 if Var.LESS_SPAMMY is not "False":
                      await response.delete()
-                 response = await conv.get_response(chat)
                  if not response.text == "/start":
                      await borg.send_message(chat, LWARN)
-                     if Var.LESS_SPAMMY is not False:
+                     if Var.LESS_SPAMMY is not "False":
                          if chat_id in PREV_REPLY_MESSAGE:
                              await PREV_REPLY_MESSAGE[chat_id].delete()
                              await PREV_REPLY_MESSAGE[userid].delete()
@@ -149,7 +148,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                          await event.client(functions.contacts.BlockRequest(chat_id))
              elif y == "2":
                  s = await borg.send_message(chat, LWARN)
-                 if Var.LESS_SPAMMY is not False:
+                 if Var.LESS_SPAMMY is not "False":
                      await response.delete()
                      if chat_id in PREV_REPLY_MESSAGE:
                          await PREV_REPLY_MESSAGE[chat_id].delete()
@@ -162,7 +161,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                      await event.client(functions.contacts.BlockRequest(chat_id))
              elif y == "3":
                  t = await borg.send_message(chat, Nudas)
-                 if Var.LESS_SPAMMY is not False:
+                 if Var.LESS_SPAMMY is not "False":
                      await response.delete()
                      if chat_id in PREV_REPLY_MESSAGE:
                          await PREV_REPLY_MESSAGE[chat_id].delete()
@@ -175,7 +174,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                      response = await conv.get_response(chat)
                      if not response.text == "/start":
                          k = await borg.send_message(chat, LWARN)
-                         if Var.LESS_SPAMMY is not False:
+                         if Var.LESS_SPAMMY is not "False":
                              if chat_id in PREV_REPLY_MESSAGE:
                                  await PREV_REPLY_MESSAGE[chat_id].delete()
                              PREV_REPLY_MESSAGE[chat.id] = k
@@ -186,12 +185,12 @@ if Var.PRIVATE_GROUP_ID is not None:
                              await event.client(functions.contacts.BlockRequest(chat_id))
                  elif x == "2":
                      await borg.send_message(chat, "**You nigga gay af to send a guy like my your male nudes. \nLeave immediately else you become the ultimate gayest gay the gay world has ever seen. I will reply you when i get online.**")
-                     if Var.LESS_SPAMMY is not False:
+                     if Var.LESS_SPAMMY is not "False":
                          await response.delete()
                      response = await conv.get_response(chat)
                      if not response.text == "/start":
                          o = await borg.send_message(chat, LWARN)
-                         if Var.LESS_SPAMMY is not False:
+                         if Var.LESS_SPAMMY is not "False":
                              if chat_id in PREV_REPLY_MESSAGE:
                                  await PREV_REPLY_MESSAGE[chat_id].delete()
                              PREV_REPLY_MESSAGE[chat.id] = o
@@ -202,12 +201,12 @@ if Var.PRIVATE_GROUP_ID is not None:
                              await event.client(functions.contacts.BlockRequest(chat_id))
                  elif x == "3":
                      await borg.send_message(chat, "`Please decide a gender for yourself before sending your nudes here,\n not that i'm judging if you're a helicopter or a banana but yeah, If you are anything else than a female Homo-Sapien,\n Do not send more messages and let my master see for himself if he wants to talk with you.`")
-                     if Var.LESS_SPAMMY is not False:
+                     if Var.LESS_SPAMMY is not "False":
                          await response.delete()
                      response = await conv.get_response(chat)
                      if not response.text == "/start":
                          p = await borg.send_message(chat, LWARN)
-                         if Var.LESS_SPAMMY is not False:
+                         if Var.LESS_SPAMMY is not "False":
                              if chat_id in PREV_REPLY_MESSAGE:
                                  await PREV_REPLY_MESSAGE[chat_id].delete()
                              PREV_REPLY_MESSAGE[chat.id] = p
@@ -218,7 +217,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                              await event.client(functions.contacts.BlockRequest(chat_id))
                  else:
                      g = await borg.send_message(chat, "__You have entered an invalid command. Please send__ `/start` __again or do not send another message if you do not wish to be blocked and reported.__")
-                     if Var.LESS_SPAMMY is not False:
+                     if Var.LESS_SPAMMY is not "False":
                          if chat_id in PREV_REPLY_MESSAGE:
                              await PREV_REPLY_MESSAGE[chat_id].delete()
                              await PREV_REPLY_MESSAGE[userid].delete()
@@ -230,7 +229,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                              await event.client(functions.contacts.BlockRequest(chat_id))
              elif y == "4":
                  u = await borg.send_message(chat, FOUR)
-                 if Var.LESS_SPAMMY is not False:
+                 if Var.LESS_SPAMMY is not "False":
                      await response.delete()
                  response = await conv.get_response(chat)
                  if not response.text == "/start":
@@ -242,7 +241,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                          await event.client(functions.contacts.BlockRequest(chat_id))
              elif y == "5":
                  v = await borg.send_message(chat,FIVE)
-                 if Var.LESS_SPAMMY is not False:
+                 if Var.LESS_SPAMMY is not "False":
                      await response.delete()
                  response = await conv.get_response(chat)
                  if not response.text == "/start":
@@ -254,7 +253,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                          await event.client(functions.contacts.BlockRequest(chat_id))
              else:
                  w = await borg.send_message(chat, "`You have entered an invalid command. Please send /start again or do not send another message if you do not wish to be blocked and reported.`")
-                 if Var.LESS_SPAMMY is not False:
+                 if Var.LESS_SPAMMY is not "False":
                      if chat_id in PREV_REPLY_MESSAGE:
                          await PREV_REPLY_MESSAGE[chat_id].delete()
                          await PREV_REPLY_MESSAGE[userid].delete()
