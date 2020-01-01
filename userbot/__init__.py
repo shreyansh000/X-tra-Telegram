@@ -82,7 +82,7 @@ if bool(ENV):
     REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
     
     # Pmpermit spam allowed
-    LESS_SPAMMY = os.environ.get("LESS_SPAMMY", True)
+    LESS_SPAMMY = os.environ.get("LESS_SPAMMY", None)
 
     # Chrome Driver and Headless Google Chrome Binaries
     CHROME_DRIVER = os.environ.get("CHROME_DRIVER", None)
