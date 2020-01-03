@@ -239,7 +239,7 @@ async def _(event):
     except (Exception) as exc:
         await event.edit(str(exc))
     else:
-        await event.edit(f"{input_cmd}ed Successfully")
+        await event.edit(f"{input_cmd}ned Successfully!")
 
 
 @register(outgoing=True, pattern="^.mute(?: |$)(.*)")
@@ -331,7 +331,7 @@ async def _(event):
     except (Exception) as exc:
         await event.edit(str(exc))
     else:
-        await event.edit(f"{input_cmd}ed Successfully")
+        await event.edit(f"{input_cmd}ned Successfully!")
 
 
 @register(incoming=True)
