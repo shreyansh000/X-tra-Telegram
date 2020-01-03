@@ -105,7 +105,7 @@ async def set_group_photo(gpic):
             await gpic.edit(PP_ERROR)
 
 
-@register(outgoing=True, pattern="^.promote(?: |$)(.*)", allow_sudo=True)
+@register(outgoing=True, pattern="^.promote(?: |$)(.*)")
 @errors_handler
 async def promote(promt):
     """ For .promote command, promotes the replied/tagged person """
@@ -156,7 +156,7 @@ async def promote(promt):
             f"CHAT: {promt.chat.title}(`{promt.chat_id}`)")
 
 
-@register(outgoing=True, pattern="^.demote(?: |$)(.*)", allow_sudo=True)
+@register(outgoing=True, pattern="^.demote(?: |$)(.*)")
 @errors_handler
 async def demote(dmod):
     """ For .demote command, demotes the replied/tagged person """
