@@ -8,6 +8,11 @@ Userbot module to help you manage a group
 
 from asyncio import sleep
 from os import remove
+from telethon import events
+import asyncio
+from datetime import datetime
+from telethon.tl.functions.channels import EditBannedRequest
+from telethon.tl.types import ChatBannedRights
 
 from telethon.errors import (BadRequestError, ChatAdminRequiredError,
                              ImageProcessFailedError, PhotoCropSizeSmallError,
@@ -23,7 +28,7 @@ from telethon.tl.types import (ChannelParticipantsAdmins, ChatAdminRights,
                                MessageMediaPhoto)
 
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot 
-from userbot.utils import register, errors_handler
+from userbot.utils import register, errors_handler, admin_cmd
 
 # =================== CONSTANT ===================
 PP_TOO_SMOL = "`The image is too small`"
@@ -206,96 +211,35 @@ async def demote(dmod):
             f"CHAT: {dmod.chat.title}(`{dmod.chat_id}`)")
 
 
-@register(outgoing=True, pattern="^.ban(?: |$)(.*)", allow_sudo=True)
-@errors_handler
-async def ban(bon):
-    """ For .ban command, bans the replied/tagged person """
-    # Here laying the sanity check
-    chat = await bon.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
-
-    # Well
-    if not admin and not creator:
-        await bon.edit(NO_ADMIN)
+@borg.on(admin_cmd(pattern="(ban|unban) ?(.*)", allow_sudo=True))
+async def _(event):
+    # Space weirdness in regex required because argument is optional and other
+    # commands start with ".unban"
+    if event.fwd_from:
         return
-
-    user, reason = await get_user_from_event(bon)
-    if user:
-        pass
+    start = datetime.now()
+    to_ban_id = None
+    rights = None
+    input_cmd = event.pattern_match.group(1)
+    if input_cmd == "ban":
+        rights = banned_rights
+    elif input_cmd == "unban":
+        rights = unbanned_rights
+    input_str = event.pattern_match.group(2)
+    reply_msg_id = event.reply_to_msg_id
+    if reply_msg_id:
+        r_mesg = await event.get_reply_message()
+        to_ban_id = r_mesg.from_id
+    elif input_str and "all" not in input_str:
+        to_ban_id = int(input_str)
     else:
-        return
-
-    # Announce that we're going to whack the pest
-    await bon.edit("`Whacking the pest!`")
-
+        return False
     try:
-        await bon.client(EditBannedRequest(bon.chat_id, user.id,
-                                           BANNED_RIGHTS))
-    except BadRequestError:
-        await bon.edit(NO_PERM)
-        return
-    # Helps ban group join spammers more easily
-    try:
-        reply = await bon.get_reply_message()
-        if reply:
-            await reply.delete()
-    except BadRequestError:
-        await bon.edit(
-            "`I dont have message nuking rights! But still he was banned!`")
-        return
-    # Delete message and then tell that the command
-    # is done gracefully
-    # Shout out the ID, so that fedadmins can fban later
-    if reason:
-        await bon.edit(f"Loser `{str(user.id)}` was banned !!\nReason: {reason}")
+        await borg(EditBannedRequest(event.chat_id, to_ban_id, rights))
+    except (Exception) as exc:
+        await event.edit(str(exc))
     else:
-        await bon.edit(f"Bitch `{str(user.id)}` was banned !!")
-    # Announce to the logging group if we have banned the person
-    # successfully!
-    if BOTLOG:
-        await bon.client.send_message(
-            BOTLOG_CHATID, "#BAN\n"
-            f"USER: [{user.first_name}](tg://user?id={user.id})\n"
-            f"CHAT: {bon.chat.title}(`{bon.chat_id}`)")
-
-
-@register(outgoing=True, pattern="^.unban(?: |$)(.*)", allow_sudo=True)
-@errors_handler
-async def nothanos(unbon):
-    """ For .unban command, unbans the replied/tagged person """
-    # Here laying the sanity check
-    chat = await unbon.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
-
-    # Well
-    if not admin and not creator:
-        await unbon.edit(NO_ADMIN)
-        return
-
-    # If everything goes well...
-    await unbon.edit("`Unbanning...`")
-
-    user = await get_user_from_event(unbon)
-    user = user[0]
-    if user:
-        pass
-    else:
-        return
-
-    try:
-        await unbon.client(
-            EditBannedRequest(unbon.chat_id, user.id, UNBAN_RIGHTS))
-        await unbon.edit("```Unbanned Successfully. Granting another chance.```")
-
-        if BOTLOG:
-            await unbon.client.send_message(
-                BOTLOG_CHATID, "#UNBAN\n"
-                f"USER: [{user.first_name}](tg://user?id={user.id})\n"
-                f"CHAT: {unbon.chat.title}(`{unbon.chat_id}`)")
-    except UserIdInvalidError:
-        await unbon.edit("`Uh oh my unban logic broke!`")
+        await event.edit(f"{input_cmd}ed Successfully")
 
 
 @register(outgoing=True, pattern="^.mute(?: |$)(.*)")
