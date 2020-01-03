@@ -29,7 +29,7 @@ async def _(event):
     quit()
 
 
-@borg.on(admin_cmd("shutdown"))
+@borg.on(admin_cmd("shutdown", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
