@@ -26,7 +26,6 @@ async def _(event):
     # https://archive.is/im3rt
     os.execl(sys.executable, sys.executable, *sys.argv)
     # You probably don't need it but whatever
-    quit()
 
 
 @borg.on(admin_cmd("shutdown", allow_sudo=True))
@@ -35,3 +34,4 @@ async def _(event):
         return
     await event.edit("Turning off ...Manually turn me on later")
     await borg.disconnect()
+    quit()
