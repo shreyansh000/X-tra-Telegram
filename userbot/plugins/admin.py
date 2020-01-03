@@ -224,7 +224,7 @@ async def _(event):
     if input_cmd == "ban":
         rights = BANNED_RIGHTS
     elif input_cmd == "unban":
-        rights = UNBANNED_RIGHTS
+        rights = UNBAN_RIGHTS
     input_str = event.pattern_match.group(2)
     reply_msg_id = event.reply_to_msg_id
     if reply_msg_id:
@@ -316,7 +316,7 @@ async def _(event):
     if input_cmd == "ban":
         rights = BANNED_RIGHTS
     elif input_cmd == "unban":
-        rights = UNBANNED_RIGHTS
+        rights = UNBAN_RIGHTS
     input_str = event.pattern_match.group(2)
     reply_msg_id = event.reply_to_msg_id
     if reply_msg_id:
