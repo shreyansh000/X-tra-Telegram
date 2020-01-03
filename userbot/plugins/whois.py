@@ -9,7 +9,7 @@ from telethon.utils import get_input_location
 from userbot.utils import admin_cmd
 
 
-@borg.on(admin_cmd("whois ?(.*)"), allow_sudo=True)
+@borg.on(admin_cmd("whois ?(.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
