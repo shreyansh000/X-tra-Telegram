@@ -13,7 +13,7 @@ from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
 from userbot.utils import register, errors_handler
 
 
-@register(outgoing=True, pattern="^.purge$", allow_sudo=True)
+@register(outgoing=True, pattern="^.purge$")
 @errors_handler
 async def fastpurger(purg):
     """ For .purge command, purge all messages starting from the reply. """
