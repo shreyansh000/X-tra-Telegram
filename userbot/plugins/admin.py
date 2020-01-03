@@ -222,9 +222,9 @@ async def _(event):
     rights = None
     input_cmd = event.pattern_match.group(1)
     if input_cmd == "ban":
-        rights = banned_rights
+        rights = BANNED_RIGHTS
     elif input_cmd == "unban":
-        rights = unbanned_rights
+        rights = UNBANNED_RIGHTS
     input_str = event.pattern_match.group(2)
     reply_msg_id = event.reply_to_msg_id
     if reply_msg_id:
@@ -303,53 +303,35 @@ async def spider(spdr):
             return await spdr.edit("`Uh oh my mute logic broke!`")
 
 
-@register(outgoing=True, pattern="^.unmute(?: |$)(.*)")
-@errors_handler
-async def unmoot(unmot):
-    """ For .unmute command, unmute the replied/tagged person """
-    # Admin or creator check
-    chat = await unmot.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
-
-    # If not admin and not creator, return
-    if not admin and not creator:
-        await unmot.edit(NO_ADMIN)
+@borg.on(admin_cmd(pattern="(ban|unban) ?(.*)"))
+async def _(event):
+    # Space weirdness in regex required because argument is optional and other
+    # commands start with ".unban"
+    if event.fwd_from:
         return
-
-    # Check if the function running under SQL mode
+    start = datetime.now()
+    to_ban_id = None
+    rights = None
+    input_cmd = event.pattern_match.group(1)
+    if input_cmd == "ban":
+        rights = BANNED_RIGHTS
+    elif input_cmd == "unban":
+        rights = UNBANNED_RIGHTS
+    input_str = event.pattern_match.group(2)
+    reply_msg_id = event.reply_to_msg_id
+    if reply_msg_id:
+        r_mesg = await event.get_reply_message()
+        to_ban_id = r_mesg.from_id
+    elif input_str and "all" not in input_str:
+        to_ban_id = int(input_str)
+    else:
+        return False
     try:
-        from userbot.modules.sql_helper.spam_mute_sql import unmute
-    except AttributeError:
-        await unmot.edit(NO_SQL)
-        return
-
-    # If admin or creator, inform the user and start unmuting
-    await unmot.edit('```Unmuting...```')
-    user = await get_user_from_event(unmot)
-    user = user[0]
-    if user:
-        pass
+        await borg(EditBannedRequest(event.chat_id, to_ban_id, rights))
+    except (Exception) as exc:
+        await event.edit(str(exc))
     else:
-        return
-
-    if unmute(unmot.chat_id, user.id) is False:
-        return await unmot.edit("`Error! User probably already unmuted.`")
-    else:
-
-        try:
-            await unmot.client(
-                EditBannedRequest(unmot.chat_id, user.id, UNBAN_RIGHTS))
-            await unmot.edit("```Unmuted Successfully```")
-        except UserIdInvalidError:
-            await unmot.edit("`Uh oh my unmute logic broke!`")
-            return
-
-        if BOTLOG:
-            await unmot.client.send_message(
-                BOTLOG_CHATID, "#UNMUTE\n"
-                f"USER: [{user.first_name}](tg://user?id={user.id})\n"
-                f"CHAT: {unmot.chat.title}(`{unmot.chat_id}`)")
+        await event.edit(f"{input_cmd}ed Successfully")
 
 
 @register(incoming=True)
